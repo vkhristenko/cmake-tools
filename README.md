@@ -1,2 +1,0 @@
-# cmake-tools
-cmake utilities
