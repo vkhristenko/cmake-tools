@@ -44,7 +44,7 @@ cp ${_input} ${CMAKE_CURRENT_BINARY_DIR}
     add_custom_target(${_target}_copy_files DEPENDS ${_output_files})
 
     # generate a script to generate the exe
-    set(_forward_args [=[${@:1}]=])
+    set(_forward_args [=[\${@:1}]=])
     set(_gen_exe_file gen_exe_file)
     file(
         GENERATE
@@ -52,7 +52,7 @@ cp ${_input} ${CMAKE_CURRENT_BINARY_DIR}
         CONTENT "\
 #!/bin/bash
 cat > ${CMAKE_CURRENT_BINARY_DIR}/${_target} <<- 'EOM'
-$<TARGET_PROPERTY:IMPORTED_LOCATION> ${CMAKE_CURRENT_BINARY_DIR}/${_entry_point} \${_forward_args}
+$<TARGET_PROPERTY:IMPORTED_LOCATION> ${CMAKE_CURRENT_BINARY_DIR}/${_entry_point} ${_forward_args}
 EOM
 chmod +x ${CMAKE_CURRENT_BINARY_DIR}/${_target}
 "
