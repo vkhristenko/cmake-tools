@@ -1,0 +1,57 @@
+function(add_python_executable)
+    cmake_parse_arguments(
+        add_python_executable
+        ""
+        "TARGET;ENTRY_POINT"
+        "INPUT"
+        ${ARGN}
+    )
+    tcpp_fail_if_undefined(add_python_executable_TARGET)
+    tcpp_fail_if_undefined(add_python_executable_ENTRY_POINT)
+    tcpp_fail_if_undefined(add_python_executable_INPUT)
+    set(_target ${add_python_executable_TARGET})
+    set(_entry_point ${add_python_executable_ENTRY_POINT})
+    set(_input ${add_python_executable_INPUT})
+
+    set(_copy_files_file copy_files_file)
+    file(
+        GENERATE
+        OUTPUT ${_copy_files_file}
+        CONTENT "\
+#!/bin/bash
+cp ${_input} ${CMAKE_CURRENT_BINARY_DIR}
+"
+        FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
+    )
+
+    foreach(_file ${_input})
+        tcpp_rel_path(_file_rel ${_file} ${CMAKE_CURRENT_SOURCE_DIR})
+        set(_output_file ${CMAKE_CURRENT_BINARY_DIR}/${_file_rel})
+        list(APPEND _output_files ${_output_file})
+    endforeach()
+
+    set(_forward_args [=[${@:1}]=])
+    file(
+        GENERATE
+        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${_target}
+        CONTENT "$<TARGET_PROPERTY:IMPORTED_LOCATION> ${CMAKE_CURRENT_BINARY_DIR}/${_entry_point} ${_forward_args}"
+        TARGET python3
+        FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
+    )
+
+    tcpp_debug_var(_output_files)
+    add_custom_command(
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/${_copy_files_file}
+        OUTPUT ${_output_files} ${CMAKE_CURRENT_BINARY_DIR}/${_target}
+        DEPENDS ${_input}
+        COMMAND_EXPAND_LISTS
+        VERBATIM
+        COMMENT "copying files ${_input} into ${CMAKE_CURRENT_BINARY_DIR}"
+    )
+    add_custom_target(${_target}_copy_files DEPENDS ${_output_files})
+
+    add_executable(${_target} IMPORTED GLOBAL)
+    add_dependencies(${_target} ${_target}_copy_files)
+    set_target_properties(${_target} PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/${_target})
+
+endfunction()
