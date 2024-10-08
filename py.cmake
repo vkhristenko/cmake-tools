@@ -44,7 +44,7 @@ cp ${_input} ${CMAKE_CURRENT_BINARY_DIR}
     add_custom_target(${_target}_copy_files DEPENDS ${_output_files})
 
     # generate a script to generate the exe
-    set(_forward_args [=['${@:1}']=])
+    set(_forward_args [=[\${@:1}]=])
     set(_gen_exe_file gen_exe_file)
     file(
         GENERATE
