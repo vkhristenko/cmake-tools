@@ -17,8 +17,8 @@ function(tcpp_enum_gen)
 
     add_custom_command(
         OUTPUT ${_output_abs}
-        COMMAND enum_gen --input ${_input} --output ${_output}
-        DEPENDS ${_input} enum_gen
+        COMMAND $<TARGET_PROPERTY:enum_gen,EXECUTION_FILE_LOCATION> --input ${_input} --output ${_output}
+        DEPENDS ${_input} enum_gen $<TARGET_PROPERTY:enum_gen,EXECUTION_FILE_LOCATION>
         COMMAND_EXPAND_LISTS
         VERBATIM
         COMMENT "enum_gen: Generating enums for ${_input}"
