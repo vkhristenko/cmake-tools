@@ -51,7 +51,7 @@ cp ${_input} ${CMAKE_CURRENT_BINARY_DIR}
         OUTPUT ${_gen_exe_file}
         CONTENT "\
 #!/bin/bash
-cat > ${CMAKE_CURRENT_BINARY_DIR}/${_target} <<- EOM
+cat > ${CMAKE_CURRENT_BINARY_DIR}/${_target} <<- 'EOM'
 $<TARGET_PROPERTY:IMPORTED_LOCATION> ${CMAKE_CURRENT_BINARY_DIR}/${_entry_point} ${_forward_args}
 EOM
 chmod +x ${CMAKE_CURRENT_BINARY_DIR}/${_target}
