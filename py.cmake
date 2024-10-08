@@ -59,9 +59,12 @@ chmod +x ${CMAKE_CURRENT_BINARY_DIR}/${_target}
         TARGET python3
         FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
     )
+    # we force regenerating the exe each time we update
+    # sources
     add_custom_command(
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/${_gen_exe_file}
         OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${_target}
+        DEPENDS ${_output_files} ${_target}_copy_files
         COMMAND_EXPAND_LISTS
         VERBATIM
         COMMENT "generating executable ${CMAKE_CURRENT_BINARY_DIR}/${_target}"
