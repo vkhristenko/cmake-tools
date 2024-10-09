@@ -59,16 +59,24 @@ chmod +x ${CMAKE_CURRENT_BINARY_DIR}/${_target}
         TARGET python3
         FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
     )
+
+    # genreate the exe and set the properties
     add_custom_command(
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/${_gen_exe_file}
         OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${_target}
-        DEPENDS ${_target}_copy_files ${_output_files}
+        DEPENDS ${CMAKE_CURRNT_BINARY_DIR}/${_gen_exe_file} ${_target}_copy_files ${_output_files}
         COMMAND_EXPAND_LISTS
         VERBATIM
         COMMENT "generating executable ${CMAKE_CURRENT_BINARY_DIR}/${_target}"
     )
+    add_executable(${_target} IMPORTED GLOBAL)
+    add_dependencies(${_target} ${_target}_copy_files)
+    set_target_properties(${_target} PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/${_target})
+
+    set(__ "\
     add_custom_target(${_target} DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${_target})
     set_target_properties(${_target} PROPERTIES EXECUTABLE_FILE_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/${_target})
+    ")
 
     set(__ "\
     file(

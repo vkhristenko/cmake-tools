@@ -15,6 +15,7 @@ function(tcpp_enum_gen)
     tcpp_abs_path(_input_abs ${_input})
     tcpp_abs_path(_output_abs ${_output})
 
+    set(__ "\
     add_custom_command(
         OUTPUT ${_output_abs}
         COMMAND $<TARGET_PROPERTY:enum_gen,EXECUTABLE_FILE_LOCATION> --input ${_input} --output ${_output}
@@ -23,4 +24,16 @@ function(tcpp_enum_gen)
         VERBATIM
         COMMENT "enum_gen: Generating enums for ${_input}"
     )
+    ")
+    
+    add_custom_command(
+        OUTPUT ${_output_abs}
+        COMMAND enum_gen --input ${_input} --output ${_output}
+        DEPENDS ${_input} enum_gen
+        COMMAND_EXPAND_LISTS
+        VERBATIM
+        COMMENT "enum_gen: Generating enums for ${_input}"
+    )
+ 
+
 endfunction()
