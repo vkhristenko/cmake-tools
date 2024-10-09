@@ -64,7 +64,7 @@ chmod +x ${CMAKE_CURRENT_BINARY_DIR}/${_target}
     add_custom_command(
         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/${_gen_exe_file}
         OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${_target}
-        DEPENDS ${CMAKE_CURRNT_BINARY_DIR}/${_gen_exe_file} ${_target}_copy_files ${_output_files}
+        DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${_gen_exe_file} ${_target}_copy_files ${_output_files}
         COMMAND_EXPAND_LISTS
         VERBATIM
         COMMENT "generating executable ${CMAKE_CURRENT_BINARY_DIR}/${_target}"
