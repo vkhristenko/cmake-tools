@@ -69,29 +69,7 @@ chmod +x ${CMAKE_CURRENT_BINARY_DIR}/${_target}
         VERBATIM
         COMMENT "generating executable ${CMAKE_CURRENT_BINARY_DIR}/${_target}"
     )
-    add_executable(${_target} IMPORTED GLOBAL)
-    add_dependencies(${_target} ${_target}_copy_files)
-    set_target_properties(${_target} PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/${_target})
-
-    set(__ "\
     add_custom_target(${_target} DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${_target})
     set_target_properties(${_target} PROPERTIES EXECUTABLE_FILE_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/${_target})
-    ")
-
-    set(__ "\
-    file(
-        GENERATE
-        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${_target}
-        CONTENT "$<TARGET_PROPERTY:IMPORTED_LOCATION> ${CMAKE_CURRENT_BINARY_DIR}/${_entry_point} ${_forward_args}"
-        TARGET python3
-        FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
-    )
-    ")
-
-    set(__ "\
-    add_executable(${_target} IMPORTED GLOBAL)
-    add_dependencies(${_target} ${_target}_copy_files)
-    set_target_properties(${_target} PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/${_target})
-    ")
 
 endfunction()
