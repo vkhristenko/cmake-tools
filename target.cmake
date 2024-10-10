@@ -13,7 +13,7 @@ function(tcpp_auto_addsubdirs _dir_rel)
         message(STATUS ${_dir_rel}/CMakeLists.txt)
         add_subdirectory(${_dir_rel})
     else()
-        file(GLOB directories ${_dir_rel}/*)
+        file(GLOB directories LIST_DIRECTORIES true ${_dir_rel}/*)
         message(STATUS ${directories})
 
         foreach(dir ${directories})
