@@ -10,9 +10,11 @@ endfunction()
 
 function(tcpp_auto_addsubdirs _dir_rel)
     if (EXISTS ${_dir_rel}/CMakeLists.txt)
+        message(STATUS ${_dir_rel}/CMakeLists.txt)
         add_subdirectory(${_dir_rel})
     else()
         file(GLOB directories ${_dir_rel}/*)
+        message(STATUS ${directories})
 
         foreach(dir ${directories})
             if(IS_DIRECTORY ${dir})
