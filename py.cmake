@@ -20,7 +20,7 @@ function(tcpp_add_python_executable)
     )
 
     # generate a script to generate the exe
-    set(_forward_args [=[\${@:1}]=])
+    set(_forward_args [=[${@:1}]=])
     file(
         GENERATE
         OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${_target}_gen
