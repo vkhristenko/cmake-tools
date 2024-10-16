@@ -1,4 +1,4 @@
-# deprecated in favor of tcpp_module_name
+# deprecated in favor of tcpp_module_nmae
 function(tcpp_target_name _target_var)
     tcpp_rel_path(_path_to_subdir ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/src)
     string(REPLACE "/" "--" _path_to_subdir ${_path_to_subdir})
@@ -8,19 +8,11 @@ endfunction()
 function(tcpp_module_name _module_var)
     tcpp_rel_path(_path_to_subdir ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/src)
     string(REPLACE "/" "--" _path_to_subdir ${_path_to_subdir})
-    set(${_module_var} ${_path_to_subdir} PARENT_SCOPE)
+    set(${_target_var} ${_path_to_subdir} PARENT_SCOPE)
 endfunction()
 
-function(tcpp_module_name_from_target _module_name_var _target)
-    string(REPLACE "--" ";" _target_as_list ${target})
-    list(LENGTH _target_as_list _target_as_list_size)
-    list(SUBLIST _target_as_list 0 ${_target_as_list_size} _sublist)
-    list(JOIN _target_as_list "--" _merged)
-    set(${_module_name_var} ${_merged} PARENT_SCOPE)
-endfunction()
-
-function(tcpp_target_form _target_var _module _suffix)
-    set(${_target_var} ${_module}--${_suffix} PARENT_SCOPE)
+function(tcpp_target_form _target_var _prefix _suffix)
+    set(${_target_var} ${_prefix}--${_suffix} PARENT_SCOPE)
 endfunction()
 
 function(tcpp_auto_addsubdirs _dir_rel)
