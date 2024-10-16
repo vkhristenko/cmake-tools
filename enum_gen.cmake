@@ -12,7 +12,8 @@ function(tcpp_enum_gen)
     set(_input ${tcpp_enum_gen_INPUT})
     set(_target ${tcpp_enum_gen_TARGET})
 
-    tcpp_target_form(_target_copy_files ${_target} copy_files)
+    tcpp_module_name_from_target(_this_module ${_target})
+    tcpp_target_form(_target_copy_files ${_this_module} copy_files)
     tcpp_copy_files(
         TARGET ${_target_copy_files}
         INPUT ${_input}

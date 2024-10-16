@@ -13,7 +13,8 @@ function(tcpp_add_python_executable)
     set(_entry_point ${tcpp_add_python_executable_ENTRY_POINT})
     set(_input ${tcpp_add_python_executable_INPUT})
 
-    tcpp_target_form(_target_copy_files ${_target} copy_files)
+    tcpp_module_name_from_target(_this_module ${_target})
+    tcpp_target_form(_target_copy_files ${_this_module} copy_files)
     tcpp_copy_files(
         TARGET ${_target_copy_files}
         INPUT ${_input}
