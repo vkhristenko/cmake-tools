@@ -12,7 +12,7 @@ function(tcpp_module_name _module_var)
 endfunction()
 
 function(tcpp_module_name_from_target _module_name_var _target)
-    string(REPLACE "--" ";" _target_as_list ${target})
+    string(REPLACE "--" ";" _target_as_list ${_target})
     list(LENGTH _target_as_list _target_as_list_size)
     list(SUBLIST _target_as_list 0 ${_target_as_list_size} _sublist)
     list(JOIN _target_as_list "--" _merged)
