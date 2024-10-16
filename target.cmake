@@ -49,3 +49,45 @@ function(tcpp_sse)
         set(${tcpp_sse_TARGET_VAR} ${_target} PARENT_SCOPE)
     endif()
 endfunction()
+
+function(tcpp_copy_files)
+    cmake_parse_arguments(
+        tcpp_copy_files
+        ""
+        "TARGET"
+        "INPUT"
+        ${ARGN}
+    )
+    tcpp_fail_if_undefined(tcpp_copy_files_TARGET)
+    tcpp_fail_if_undefined(tcpp_copy_files_INPUT)
+    set(_target ${tcpp_copy_files_TARGET})
+    set(_input ${tcpp_copy_files_INPUT})
+
+    set(_copy_files_file ${_target}_copy_files)
+    file(
+        GENERATE
+        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${_copy_files_file}
+        CONTENT "\
+#!/bin/bash
+cp ${_input} ${CMAKE_CURRENT_BINARY_DIR}
+"
+    FILE_PERMISSIONS OWNER_READ OWNER_WRITE_OWNER_EXECUTE
+    )
+
+    foreach(_file ${_input})
+        tcpp_rel_path(_file_rel ${_file} ${CMAKE_CURRENT_SOURCE_DIR})
+        set(_output_file ${CMAKE_CURRENT_BINARY_DIR}/${_file_rel})
+        list(APPEND _output_files ${_output_file})
+    endforeach()
+
+    add_custom_command(
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/${_copy_files_file}
+        OUTPUT ${_output_files}
+        DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${_copy_files_file} ${_input}
+        COMMAND_EXPAND_LISTS
+        VERBATIM
+        COMMENT "${_target}: copying ${_input} into ${CMAKE_CURRENT_BINARY_DIR}"
+    )
+    add_custom_target(${_target} DEPENDS ${_output_files})
+    set_target_properties(${_target} PROPERTIES OUTPUT ${_output_files})
+endfunction()
