@@ -22,7 +22,7 @@ function(tcpp_enum_gen)
     add_custom_command(
         OUTPUT ${_output_abs}
         COMMAND 
-            $<TARGET_PROPERTY:enum_gen,LOCAITON> --input $<TARGET_PROPERTY:${_target_copy_files},OUTPUT> --output ${_output_abs}
+            $<TARGET_PROPERTY:enum_gen,LOCATION> --input $<TARGET_PROPERTY:${_target_copy_files},OUTPUT> --output ${_output_abs}
         DEPENDS
             ${_target_copy_files} $<TARGET_PROPERTY:${_target_copy_files},OUTPUT>
             enum_gen $<TARGET_PROPERTY:enum_gen,LOCATION>
