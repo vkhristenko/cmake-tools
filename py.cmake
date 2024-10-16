@@ -1,6 +1,6 @@
 function(tcpp_add_python_executable)
     cmake_parse_arguments(
-        add_python_executable
+        tcpp_add_python_executable
         ""
         "TARGET;ENTRY_POINT"
         "INPUT"
