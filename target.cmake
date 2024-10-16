@@ -71,7 +71,7 @@ function(tcpp_copy_files)
 #!/bin/bash
 cp ${_input} ${CMAKE_CURRENT_BINARY_DIR}
 "
-    FILE_PERMISSIONS OWNER_READ OWNER_WRITE_OWNER_EXECUTE
+    FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
     )
 
     foreach(_file ${_input})
