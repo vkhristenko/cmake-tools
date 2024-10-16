@@ -6,12 +6,12 @@ function(tcpp_add_python_executable)
         "INPUT"
         ${ARGN}
     )
-    tcpp_fail_if_undefined(add_python_executable_TARGET)
-    tcpp_fail_if_undefined(add_python_executable_ENTRY_POINT)
-    tcpp_fail_if_undefined(add_python_executable_INPUT)
-    set(_target ${add_python_executable_TARGET})
-    set(_entry_point ${add_python_executable_ENTRY_POINT})
-    set(_input ${add_python_executable_INPUT})
+    tcpp_fail_if_undefined(tcpp_add_python_executable_TARGET)
+    tcpp_fail_if_undefined(tcpp_add_python_executable_ENTRY_POINT)
+    tcpp_fail_if_undefined(tcpp_add_python_executable_INPUT)
+    set(_target ${tcpp_add_python_executable_TARGET})
+    set(_entry_point ${tcpp_add_python_executable_ENTRY_POINT})
+    set(_input ${tcpp_add_python_executable_INPUT})
 
     tcpp_target_form($_target_copy_files ${_target} copy_files)
     tcpp_copy_files(
