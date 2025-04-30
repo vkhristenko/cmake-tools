@@ -52,7 +52,7 @@ function(tcpp_auto_addsubdirs _dir)
         tcpp_debug_var(_dir_targets)
         
         tcpp_module_name_from_path(_module ${_dir})
-        add_dummy(${_module})
+        tcpp_dummy(${_module})
         add_dependencies(${_module} ${_dir_targets})
     else()
         file(GLOB directories LIST_DIRECTORIES true ${_dir}/*)
