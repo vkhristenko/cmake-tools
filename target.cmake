@@ -29,7 +29,7 @@ function(tcpp_auto_addsubdirs _dir_rel)
         add_subdirectory(${_dir_rel})
 
         get_property(_dir_rel_targets DIRECTORY ${_dir_rel} PROPERTY BUILDSYSTEM_TARGETS)
-        tcpp_debug_var(${_dir_rel_targets})
+        tcpp_debug_var(_dir_rel_targets)
     else()
         file(GLOB directories LIST_DIRECTORIES true ${_dir_rel}/*)
         message(STATUS ${directories})
