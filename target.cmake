@@ -80,6 +80,7 @@ function(tcpp_dummy _target)
         VERBATIM
         COMMENT "Generating dummy target=${_target}"
     )
+    tcpp_debug_var(_target)
     add_custom_target(${_target} DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${_target}_package)
 endfunction()
 
