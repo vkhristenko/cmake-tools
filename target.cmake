@@ -12,7 +12,7 @@ function(tcpp_module_name _module_var)
 endfunction()
 
 function(tcpp_module_name_from_target _module_name_var _target)
-    string(REPLACE "++" ";" _target_as_list_pre ${_target})
+    string(REPLACE "++" "--" _target_as_list_pre ${_target})
     tcpp_debug_var(_target_as_list_pre)
     string(REPLACE "--" ";" _target_as_list ${_target_as_list_pre})
     tcpp_debug_var(_target_as_list)
