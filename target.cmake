@@ -28,8 +28,12 @@ function(tcpp_auto_addsubdirs _dir_rel)
         message(STATUS ${_dir_rel}/CMakeLists.txt)
         add_subdirectory(${_dir_rel})
 
+        tcpp_module_name(_dir_rel_module)
+        tcpp_target_form(_dir_rel_target _dir_rel_module ${_dir_rel})
+        tcpp_dummy(${_dir_rel_target})
         get_property(_dir_rel_targets DIRECTORY ${_dir_rel} PROPERTY BUILDSYSTEM_TARGETS)
         tcpp_debug_var(_dir_rel_targets)
+        add_dependencies(${_dir_rel_target} ${_dir_rel_targets})
     else()
         file(GLOB directories LIST_DIRECTORIES true ${_dir_rel}/*)
         message(STATUS ${directories})
@@ -66,6 +70,17 @@ function(tcpp_sse)
     if (DEFINED tcpp_sse_TARGET_VAR AND DEFINED ${tcpp_sse_TARGET_VAR})
         set(${tcpp_sse_TARGET_VAR} ${_target} PARENT_SCOPE)
     endif()
+endfunction()
+
+function(tcpp_dummy _target)
+    add_custom_command(
+        COMMAND touch ${CMAKE_CURRENT_BINARY_DIR}/${_target}_package
+        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${_target}_package
+        COMMAND_EXPAND_LISTS
+        VERBATIM
+        COMMENT "Generating dummy target=${_target}"
+    )
+    add_custom_target(${_target} DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${_target}_package)
 endfunction()
 
 function(tcpp_copy_files)

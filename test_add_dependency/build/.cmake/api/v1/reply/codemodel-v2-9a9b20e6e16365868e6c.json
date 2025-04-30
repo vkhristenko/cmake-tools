@@ -1,0 +1,87 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.26"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "test_add_dependency",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "test0::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test0-15874928904e1374d517.json",
+					"name" : "test0",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test1::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test1-e13ce89970e7cdd2f740.json",
+					"name" : "test1",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test2::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test2-00aab8a89b1267cff9e8.json",
+					"name" : "test2",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test3::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test3-b7671babc6696a9ed8a2.json",
+					"name" : "test3",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/viktorkhristenko/soft/cmake-tools/test_add_dependency/build",
+		"source" : "/Users/viktorkhristenko/soft/cmake-tools/test_add_dependency"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}
