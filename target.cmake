@@ -22,7 +22,7 @@ function(tcpp_module_name_from_target _module_name_var _target)
     tcpp_debug_var(_size)
     list(SUBLIST _target_as_list 0 ${_size} _sublist)
     tcpp_debug_var(_sublist)
-    list(JOIN _target_as_list "--" _merged)
+    list(JOIN _sublist "--" _merged)
     set(${_module_name_var} ${_merged} PARENT_SCOPE)
 endfunction()
 
