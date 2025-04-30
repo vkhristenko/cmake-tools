@@ -23,7 +23,7 @@ function(tcpp_target_form _target_var _module _suffix)
     set(${_target_var} ${_module}++${_suffix} PARENT_SCOPE)
 endfunction()
 
-function(tcpp_auto_addsubdirs _dir_rel)
+function(tcpp_auto_addsubdirs _dir)
     if (EXISTS ${_dir}/CMakeLists.txt)
         message(STATUS ${_dir}/CMakeLists.txt)
         add_subdirectory(${_dir})
