@@ -1,14 +1,28 @@
-# deprecated in favor of tcpp_module_name
-function(tcpp_target_name _target_var)
-    tcpp_rel_path(_path_to_subdir ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/src)
-    string(REPLACE "/" "--" _path_to_subdir ${_path_to_subdir})
-    set(${_target_var} ${_path_to_subdir} PARENT_SCOPE)
+function(tcpp_target_name _target_var _target_id)
+    tcpp_module_name(_this_module)
+    tcpp_module_id_from_name(_module_id ${_this_module})
+    tcpp_target_form(_target ${_this_module} ${_module_id})
+    if (DEFINED _target_id)
+        tcpp_target_form(_target ${_this_module} ${_target_id})
+    endif()
+    set(${_target_var} ${_target} PARENT_SCOPE)
 endfunction()
 
 function(tcpp_module_name _module_var)
     tcpp_rel_path(_path_to_subdir ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/src)
     string(REPLACE "/" "--" _path_to_subdir ${_path_to_subdir})
     set(${_module_var} ${_path_to_subdir} PARENT_SCOPE)
+endfunction()
+
+# name vs id must be reversed
+# id = some_name
+# name = full--path--to--module--some_name
+function(tcpp_module_id_from_name _module_id_var _module_name)
+    string(REPLACE "--" ";" _module_name ${_module_name})
+    list(LENGTH _module_name _length)
+    math(EXPR _last_item_index "${_length} - 1")
+    list(GET _module_name ${_last_item_index} _last_item)
+    set(${_module_id_var} ${_last_item} PARENT_SCOPE)
 endfunction()
 
 function(tcpp_module_name_from_path _module_var _path)
