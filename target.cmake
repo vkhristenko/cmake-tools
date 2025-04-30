@@ -31,6 +31,18 @@ function(tcpp_target_form _target_var _module _suffix)
     set(${_target_var} ${_module}++${_suffix} PARENT_SCOPE)
 endfunction()
 
+function(tcpp_dummy _target)
+    add_custom_command(
+        COMMAND touch ${CMAKE_CURRENT_BINARY_DIR}/${_target}_package
+        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${_target}_package
+        COMMAND_EXPAND_LISTS
+        VERBATIM
+        COMMENT "Generating dummy target=${_target}"
+    )
+    tcpp_debug_var(_target)
+    add_custom_target(${_target} DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${_target}_package)
+endfunction()
+
 function(tcpp_auto_addsubdirs _dir)
     if (EXISTS ${_dir}/CMakeLists.txt)
         message(STATUS ${_dir}/CMakeLists.txt)
@@ -78,18 +90,6 @@ function(tcpp_sse)
     if (DEFINED tcpp_sse_TARGET_VAR AND DEFINED ${tcpp_sse_TARGET_VAR})
         set(${tcpp_sse_TARGET_VAR} ${_target} PARENT_SCOPE)
     endif()
-endfunction()
-
-function(tcpp_dummy _target)
-    add_custom_command(
-        COMMAND touch ${CMAKE_CURRENT_BINARY_DIR}/${_target}_package
-        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${_target}_package
-        COMMAND_EXPAND_LISTS
-        VERBATIM
-        COMMENT "Generating dummy target=${_target}"
-    )
-    tcpp_debug_var(_target)
-    add_custom_target(${_target} DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${_target}_package)
 endfunction()
 
 function(tcpp_copy_files)
