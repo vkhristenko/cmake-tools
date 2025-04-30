@@ -29,7 +29,7 @@ function(tcpp_auto_addsubdirs _dir_rel)
         add_subdirectory(${_dir_rel})
 
         tcpp_module_name(_dir_rel_module)
-        tcpp_target_form(_dir_rel_target _dir_rel_module ${_dir_rel})
+        tcpp_target_form(_dir_rel_target ${_dir_rel_module} ${_dir_rel})
         tcpp_dummy(${_dir_rel_target})
         get_property(_dir_rel_targets DIRECTORY ${_dir_rel} PROPERTY BUILDSYSTEM_TARGETS)
         tcpp_debug_var(_dir_rel_targets)
