@@ -81,14 +81,26 @@ function(tcpp_auto_addsubdirs _dir)
         file(GLOB directories LIST_DIRECTORIES true ${_dir}/*)
         message(STATUS ${directories})
 
+        set(_dirs_to_depend_on "")
         foreach(dir ${directories})
             if(IS_DIRECTORY ${dir})
                 tcpp_auto_addsubdirs(${dir})
-                
-                get_property(_dir_targets DIRECTORY ${_dir} PROPERTY BUILDSYSTEM_TARGETS)
-                tcpp_debug_var(_dir_targets)
+
+                tcpp_module_name_from_path(_dir_module ${dir})
+                list(APPEND _dirs_to_depend_on ${_dir_module})    
             endif()
         endforeach()
+
+        if (${_dir} EQUAL "src")
+            return()
+        endif()
+
+        if (NOT _dirs_to_depend_on)
+            return()
+        endif()
+        tcpp_module_name_from_path(_module ${_dir})
+        tcpp_dummy(${_module})
+        add_dependencies(${_module} ${_dirs_to_depend_on})
     endif()
 endfunction()
 
