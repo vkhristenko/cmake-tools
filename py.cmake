@@ -26,7 +26,7 @@ function(tcpp_add_python_executable)
         GENERATE
         OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${_target}_gen
         CONTENT "$<TARGET_PROPERTY:IMPORTED_LOCATION> ${CMAKE_CURRENT_BINARY_DIR}/${_entry_point} ${_forward_args}"
-        TARGET python3
+        TARGET python3++python3
         FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
     )
 
